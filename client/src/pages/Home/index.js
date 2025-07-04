@@ -3,7 +3,7 @@ import { Col, message, Row, Table } from "antd";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies } from "../../apicalls/movies";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import moment from "moment";
 
 function Home() {
@@ -32,6 +32,11 @@ function Home() {
   }, []);
   return (
     <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
+        <Link to="/admin">
+          <button className="primary-btn">Go to Admin</button>
+        </Link>
+      </div>
       <input
         type="text"
         className="search-input"
@@ -42,25 +47,25 @@ function Home() {
 
       <Row gutter={[20]} className="mt-2">
         {movies
-        .filter((movie) => movie.title.toLowerCase().includes(searchText.toLowerCase()))
-        .map((movie) => (
-          <Col span={6}>
-            <div
-              className="card flex flex-col gap-1 cursor-pointer"
-              onClick={() =>
-                navigate(
-                  `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
-                )
-              }
-            >
-              <img src={movie.poster} alt="" height={200} />
+          .filter((movie) => movie.title.toLowerCase().includes(searchText.toLowerCase()))
+          .map((movie) => (
+            <Col span={6}>
+              <div
+                className="card flex flex-col gap-1 cursor-pointer"
+                onClick={() =>
+                  navigate(
+                    `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
+                  )
+                }
+              >
+                <img src={movie.poster} alt="" height={200} />
 
-              <div className="flex justify-center p-1">
-                <h1 className="text-md uppercase">{movie.title}</h1>
+                <div className="flex justify-center p-1">
+                  <h1 className="text-md uppercase">{movie.title}</h1>
+                </div>
               </div>
-            </div>
-          </Col>
-        ))}
+            </Col>
+          ))}
       </Row>
     </div>
   );

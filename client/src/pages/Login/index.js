@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, message } from "antd";
 import Button from "../../components/Button";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 
 function Register() {
+  const [email, setEmail] = useState("pankaj123@gmail.com");
+  const [password, setPassword] = useState("123456");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
@@ -38,20 +40,20 @@ function Register() {
       <div className="card p-3 w-400">
         <h1 className="text-xl mb-1">FABFIVE FLICKS - LOGIN</h1>
         <hr />
-        <Form layout="vertical" className="mt-1" onFinish={onFinish}>
+        <Form layout="vertical" className="mt-1" onFinish={onFinish} initialValues={{ email, password }}>
           <Form.Item
             label="Email"
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
           >
-            <input type="email" />
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
           </Form.Item>
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <input type="password" />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
           </Form.Item>
 
           <div className="flex flex-col mt-2 gap-1">
